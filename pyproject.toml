@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "llama2-lora-finetuning-gradio-app"
+version = "0.1.0"
+description = "A gradio app to finetune llama2 model using qlora."
+authors = ["Mayank Sinha <sinha.mayank900@gmail.com>"]
+license = "GPL-3.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+torch = "2.0.0"
+transformers = "^4.32.0"
+gradio = "^3.41.2"
+mlflow = "^2.6.0"
+datasets = "^2.14.4"
+peft = "^0.5.0"
+bitsandbytes = "^0.41.1"
+sentencepiece = "^0.1.99"
+accelerate = "^0.22.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
