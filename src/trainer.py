@@ -1,32 +1,37 @@
 import datasets
 import peft
-import transformers
+from transformers import (
+        TrainingArguments, 
+        AutoTokenizer, 
+        BitsAndBytesConfig, 
+        AutoModelForCausalLM, 
+        Trainer)
 from attrs import define
 import utils
 
 
 @define
-class TrainerInit:
+class LLMTrainerInit:
     llama_model: str
     hf_access_token: str
-    bits_and_bytes_config: transformers.BitsAndBytesConfig
+    bits_and_bytes_config: BitsAndBytesConfig
     lora_config: peft.LoraConfig
-    tranier_args: transformers.TrainingArguments
+    tranier_args: TrainingArguments
     data_path: str
     device: str
 
 
-class Trainer(TrainerInit):
+class LLMTrainer(LLMTrainerInit):
     def __init__(self):
         self.model = self._peft_model()
         self.train_dataset = self.create_finetuning_data()
-        self.trainer = transformers.Trainer(
+        self.trainer = Trainer(
             model=self.model,
             train_dataset=self.train_dataset,
             args=self.tranier_args,
             data_collator=self.data_collator,
         )
-        self.tokenizer = transformers.AutoTokenizer(
+        self.tokenizer = AutoTokenizer(
             self.llama_model, token=self.hf_access_token
         )
 
@@ -37,7 +42,7 @@ class Trainer(TrainerInit):
         return utils.data_loader(self.data_path)
 
     def _peft_model(self):
-        model = transformers.AutoModelForCausalLM.from_pretrained(
+        model = AutoModelForCausalLM.from_pretrained(
             self.llama_model,
             quantization_config=self.bits_and_bytes_config,
             device=self.device,
@@ -54,3 +59,6 @@ class Trainer(TrainerInit):
         data = data.map(self._tokens_gen, batched=True)
 
         return data
+    
+if __name__ == "__main__":
+    ...
