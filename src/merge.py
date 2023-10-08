@@ -32,7 +32,7 @@ class ModelMerge:
         
         except Exception as err:
             print(err)
-            print("Model merger failed.")
+            print("Model merging failed.")
             return None
 
         

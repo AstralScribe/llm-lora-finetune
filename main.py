@@ -3,7 +3,7 @@ import src.config as config
 
 
 peft_config = config.PeftConfig("llama2")()
-bnb_config = config.BnbConfig("bnb_config")()
+bnb_config = config.BnbConfig("bnb")()
 training_args = config.TrainingArgs("trainer")()
 
 
