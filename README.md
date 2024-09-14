@@ -1,4 +1,4 @@
-# [W.I.P.] A GUI app for finetuning LLAMA2 using PEFT and BitsAndBytes
+# A training script for finetuning LLAMA2 using PEFT and BitsAndBytes
 
 ---
 
